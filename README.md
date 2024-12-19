@@ -36,5 +36,25 @@ The following Python libraries were utilized in these projects:
     pip install -r requirements.txt  
 3. Open any .py file in your preferred code editor. Use the # %% markers to execute each section of the script.
 
+## Projects Overview  
+
+| Script Name         | Description                               | Key Libraries Used          |
+|---------------------|-------------------------------------------|-----------------------------|
+| `kiva_analysis.py`  | Deep Analysis of the kiva dataset imported via kiva.org API. | pandas, requests, matplotlib |
+| `matplotlib.py`     | Data exploration & visualization with matplotlib.          | matplotlib, seabon, numpy     |
+| `seaborn.py`  | Data exploration & visualization with seaborn.                     | matplotlib, seabon, numpy                |
+| `numpy.py`  | Standard data analyses with numpy                                    |  numpy                |
+| `pandas.py`  | Standard data analyses with pandas                                  | pandas, numpy                |
+| `torch.py`  | Data exploration using torch for deep learning                       | torch, numpy                |
+| `oop_functions.py`  | Standard data functions                                      | python3                 |
+| `oop_with_python.py`  | Object Oriented Classes & Functions                        | python3                |
+| `polygon_transformations.py`  | Geoometrics transformations with shapely           | pandas, shapely, json               |
+| `pytube.py`  | Downloading mp3/4 files using pytube          | pytube              |
+| `sample_automation.py`  | Automated python file for ETL extraction & reporting     | pandas, sqlachemy                |
+| `heart_disease.py`  | Using data science to explore the symptoms of heart disease  | pandas, sqlachemy                |
+| `doctors_note.py`  | Build a fake doctor's note to get out of work (WHICH I WOULD NEVER DO)       | fpdf                |
+
+
+
 
    Feel free to explore, modify, and use the scripts to fit your needs! Contributions are welcome.
