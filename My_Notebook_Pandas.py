@@ -111,5 +111,3 @@ orders.dropna(inplace=True)
 
 # %%
 sb.heatmap(orders.isnull())
-
-# %%
