@@ -11,7 +11,12 @@ The following Python libraries were utilized in these projects:
 - **matplotlib**: Visualization and plotting.  
 - **seaborn**: Statistical data visualization.  
 - **scikit-learn**: Machine learning models and utilities.  
-- **torch**: Deep learning and neural networks.  
+- **torch**: Deep learning and neural networks.
+- **requests**: Fetching data from a RESTful API or GraphQL API.
+- **shapely**: Geometric transformations.
+- **sqlachemy**: Fetching relational data from a SQL database.
+  
+  
 
 ## Features  
 
@@ -29,7 +34,7 @@ The following Python libraries were utilized in these projects:
 
 1. Clone this repository:  
    ```bash  
-   git clone https://github.com/your_username/python_notebooks.git  
+   git clone https://github.com/vmose/Python_Notebooks.git  
    cd python_notebooks
 2. Install the required libraries:
     ```bash
@@ -41,18 +46,18 @@ The following Python libraries were utilized in these projects:
 | Script Name         | Description                               | Key Libraries Used          |
 |---------------------|-------------------------------------------|-----------------------------|
 | `kiva_analysis.py`  | Deep Analysis of the kiva dataset imported via kiva.org API. | pandas, requests, matplotlib |
-| `matplotlib.py`     | Data exploration & visualization with matplotlib.          | matplotlib, seabon, numpy     |
-| `seaborn.py`  | Data exploration & visualization with seaborn.                     | matplotlib, seabon, numpy                |
-| `numpy.py`  | Standard data analyses with numpy                                    |  numpy                |
-| `pandas.py`  | Standard data analyses with pandas                                  | pandas, numpy                |
-| `torch.py`  | Data exploration using torch for deep learning                       | torch, numpy                |
-| `oop_functions.py`  | Standard data functions                                      | python3                 |
-| `oop_with_python.py`  | Object Oriented Classes & Functions                        | python3                |
-| `polygon_transformations.py`  | Geoometrics transformations with shapely           | pandas, shapely, json               |
-| `pytube.py`  | Downloading mp3/4 files using pytube          | pytube              |
-| `sample_automation.py`  | Automated python file for ETL extraction & reporting     | pandas, sqlachemy                |
-| `heart_disease.py`  | Using data science to explore the symptoms of heart disease  | pandas, sqlachemy                |
-| `doctors_note.py`  | Build a fake doctor's note to get out of work (WHICH I WOULD NEVER DO)       | fpdf                |
+| `matplotlib.py`     | Data exploration & visualization with matplotlib.            | matplotlib, seabon, numpy    |
+| `seaborn.py`        | Data exploration & visualization with seaborn.               | matplotlib, seabon, numpy    |
+| `numpy.py`          | Standard data analyses with numpy                            |  numpy                       |
+| `pandas.py`         | Standard data analyses with pandas                           | pandas, numpy                |
+| `torch.py`          | Data exploration using torch for deep learning               | torch, numpy                 |
+| `oop_functions.py`  | Standard data functions                                      | python3                      |
+| `oop_with_python.py`  | Object Oriented Classes & Functions                        | python3                  	  |
+| `polygon_transformations.py`  | Geoometrics transformations with shapely           | pandas, shapely, json        |
+| `pytube.py`         | Downloading mp3/4 files using pytube                         | pytube                       |
+| `sample_automation.py`  | Automated python file for ETL extraction & reporting     | pandas, sqlachemy            |
+| `heart_disease.py`  | Using data science to explore the symptoms of heart disease  | pandas, sqlachemy            |
+| `doctors_note.py`   | Build a fake doctor's note to get out of work (WHICH I WOULD NEVER DO)       | fpdf         |
 
 
 
