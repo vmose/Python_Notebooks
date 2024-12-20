@@ -11,20 +11,43 @@ we embark on a journey to unveil the profound impact of micro-lending initiative
 import requests
 import pandas as pd
 
+# Define the correct GraphQL query
 query = """
-{
+query {
   lend {
-    loans(filters: {status: fundraising}, sortBy: newest) {
+    loans(limit: 1) {
       values {
         id
+        loanAmount        
         name
-        loanAmount
-        activity
-        sector
         use
-        raisedDate
-        terms
         borrowerCount
+        fundraisingDate
+        gender
+        repaymentInterval
+        tags
+        activity {
+          name
+        }
+        sector {
+          name
+        }
+        geocode {
+          country {
+            name
+            region
+          }
+        }
+        endorser {
+          id
+          name
+        }
+        terms {
+          currency
+          disbursalDate
+          loanAmount
+          lenderRepaymentTerm
+        }
       }
     }
   }
@@ -43,19 +66,110 @@ response = requests.post(url, headers=headers, json=data)
 
 # Check for successful response
 if response.status_code == 200:
-  # Parse the JSON response
-  data = response.json()
-  
-  # Access loan information
-  loan_data = data["data"]["lend"]["loans"]
-  
-  # print(f"Loan ID: {loan_data['id']}")
-  # print(f"Loan Name: {loan_data['name']}")
-  # print(f"Loan Amount: {loan_data['amount']}")
-  df=pd.DataFrame(loan_data['values'], columns=['id', 'name', 'activity','sector','use','raisedDate','terms','borrowerCount','loanAmount'])
-  print(df)
+    # Parse the JSON response
+    data = response.json()
+    
+    # Extract loan information
+    loan_data = data["data"]["lend"]["loans"]["values"]
+
+    # Normalize nested fields for DataFrame
+    normalized_data = []
+    for loan in loan_data:
+        normalized_data.append({
+            "id": loan["id"],
+            "name": loan["name"],
+            "loanAmount": loan["loanAmount"],
+            "use": loan["use"],
+            "borrowerCount": loan["borrowerCount"],
+            "fundraisingDate": loan["fundraisingDate"],
+            "gender": loan["gender"],
+            "repaymentInterval": loan["repaymentInterval"],
+            "tags": loan["tags"],
+            "activity": loan["activity"]["name"] if loan["activity"] else None,
+            "sector": loan["sector"]["name"] if loan["sector"] else None,
+            "country": loan["geocode"]["country"]["name"] if loan["geocode"] else None,
+            "region": loan["geocode"]["country"]["region"] if loan["geocode"] else None,
+            "endorserId": loan["endorser"]["id"] if loan["endorser"] else None,
+            "endorserName": loan["endorser"]["name"] if loan["endorser"] else None,
+            "currency": loan["terms"]["currency"] if loan["terms"] else None,
+            "disbursalDate": loan["terms"]["disbursalDate"] if loan["terms"] else None,
+            "lenderRepaymentTerm": loan["terms"]["lenderRepaymentTerm"] if loan["terms"] else None,
+        })
+    
+    # Create a DataFrame
+    kiva_loans = pd.DataFrame(normalized_data)
+    print(kiva_loans.head())
 else:
-  print(f"Error: {response.status_code}")
+    print(f"Error: {response.status_code}")
+    print(f"Response Details: {response.text}")
+
+
+# %%
+# Define the GraphQL query
+query2 = """
+query {
+  lend {
+    countryFacets {
+      country {
+        geocode {
+          country {
+            geocode {
+              city
+              latitude
+              longitude
+              state
+            }
+            name
+            ppp
+            region
+            isoCode
+          }
+        }
+      }
+    }
+  }
+}
+"""
+
+# Set the API endpoint and headers
+url = "https://gateway.production.kiva.org/graphql"
+headers = {"Content-Type": "application/json"}
+
+# Build the request body with the query
+data = {"query": query2}
+
+# Send the POST request
+response = requests.post(url, headers=headers, json=data)
+
+# Check for successful response
+if response.status_code == 200:
+    # Parse the JSON response
+    data = response.json()
+    
+    # Extract country facet data
+    country_data = []
+    for facet in data["data"]["lend"]["countryFacets"]:
+        country_info = facet["country"]["geocode"]["country"]
+        country_data.append({
+            "name": country_info["name"],
+            "region": country_info["region"],
+            "isoCode": country_info["isoCode"],
+            "ppp": country_info["ppp"],
+            "city": country_info["geocode"]["city"] if country_info["geocode"] else None,
+            "latitude": country_info["geocode"]["latitude"] if country_info["geocode"] else None,
+            "longitude": country_info["geocode"]["longitude"] if country_info["geocode"] else None,
+            "state": country_info["geocode"]["state"] if country_info["geocode"] else None,
+        })
+
+    # Create a DataFrame
+    kiva_ppp_region_locations = pd.DataFrame(country_data)
+    print(kiva_ppp_region_locations.head())
+else:
+    print(f"Error: {response.status_code}")
+    print(f"Response Details: {response.text}")
+
+
+# %%
 
 # %%
 # importing the relevant datasets
@@ -84,7 +198,7 @@ loan_themes_by_region.head()
 # %%
 # Get the mean and median of the loans
 
-kiva_loans['Time_Detail'] = (kiva_loans.funded_time - kiva_loans.disbursed_time).dt.days
+kiva_loans['Time_Detail'] = (kiva_loans.fundraisingDate - kiva_loans.disbursalDate).dt.days
 
 mean=kiva_loans['Time_Detail'].mean()
 median=kiva_loans['Time_Detail'].median()
