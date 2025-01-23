@@ -1,8 +1,27 @@
 # %%
-def variable(A):
-    a = 0
-    while (a := a + 1) < max(A):
-        print(a)
+"""You are given two strings word1 and word2. 
+Merge the strings by adding letters in alternating 
+order, starting with word1. If a string is longer 
+than the other, append the additional letters onto 
+the end of the merged string.
+
+Return the merged string."""
+def wordmerge(str1, str2):
+    merged = []
+    i=0
+
+    while i< len(str1) and i <len(str2):
+        merged.append(str1[i])
+        merged.append(str2[i])
+        i+=1
+
+        merged.append(str1[i:])
+        merged.append(str2[i:])
+
+        return "".join(merged)
+    
+    
+wordmerge("abc","def")
 
 # %%
 # Write a function that, given an array A of N integers, returns the smallest 
