@@ -182,3 +182,41 @@ def findMaxTemperature(n, TemperatureChange):
 n = 5
 TemperatureChange = [2, -3, 5, -1, 4]
 print(findMaxTemperature(n, TemperatureChange))  # Output: 7
+# %%
+
+# You want to find the nth number in a series using the following parameters:
+# • The first four numbers in the series are always set as n * 1 = 1 , n * 2 = 2 n * 3 = 3 n * 4 = 4 .
+# • Subsequent numbers in the series are obtained by summing the four preceding numbers.
+# Write a function findNthNumber that takes an integer n as input and returns the value of the nth number in the series.
+# Constraints:
+# 1 <= n <= 50
+
+# Example 1
+# Input:
+# • n = 6
+# Output:
+# • 19
+# Explanation:
+# • The first four numbers in the series are always 1, 2, 3, 4. The fifth number in the series is obtained by summing the previous four numbers: 1 + 2 + 3 + 4 = 10. Similarly, the sixth number is obtained by summing the previous four numbers: 2 + 3 + 4 + 10 = 19
+
+def findNthNumber(n):
+    # The first four numbers in the series are fixed
+    series = [1, 2, 3, 4]
+    
+    # If n is within the first four numbers, return it directly
+    if n <= 4:
+        return series[n - 1]
+    
+    # Generate the series until the nth number
+    for i in range(4, n):
+        # Add the last four numbers to get the next number in the series
+        next_number = series[-1] + series[-2] + series[-3] + series[-4]
+        series.append(next_number)
+    
+    return series[n - 1]
+
+# Example usage
+n = 6
+print(findNthNumber(n))  # Output: 19
+
+# %%
