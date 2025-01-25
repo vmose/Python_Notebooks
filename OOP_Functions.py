@@ -162,3 +162,23 @@ def roman_num(num):
             number += roman_dict[i]
         p_num = roman_dict[i]
     return number
+
+# %%
+def findMaxTemperature(n, TemperatureChange):
+    # Initialize the starting temperature and the maximum temperature
+    current_temperature = 0
+    max_temperature = current_temperature
+
+    # Iterate through the temperature changes
+    for change in TemperatureChange:
+        # Update the current temperature
+        current_temperature += change
+        # Update the maximum temperature if the current is higher
+        max_temperature = max(max_temperature, current_temperature)
+
+    return max_temperature
+
+# Example usage:
+n = 5
+TemperatureChange = [2, -3, 5, -1, 4]
+print(findMaxTemperature(n, TemperatureChange))  # Output: 7
